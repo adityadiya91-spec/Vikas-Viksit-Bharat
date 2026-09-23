@@ -18,7 +18,7 @@ const stages: Stage[] = [
     id: 1,
     numeral: '1',
     title: 'Registration & Submission',
-    date: 'Deadline: 29th Sep 2026',
+    date: 'Deadline: 30th Sep 2026',
     venue: 'Official Colloquium Portal',
     summary:
       'Initial submission of a structured research or innovative idea, including its abstract, concept, and proposed methodology, aligned with any of the 9 tracks and relevant UN Sustainable Development Goals (SDGs).',
@@ -29,7 +29,7 @@ const stages: Stage[] = [
     id: 2,
     numeral: '2',
     title: 'Submission Evaluation and Result',
-    date: 'Deadline: 30th Sep 2026',
+    date: 'Deadline: 01 Oct 2026',
     venue: 'Official Colloquium Portal',
     summary:
       'Official declaration of PPT evaluation results and technical review scores. A total of 60 teams from UG/Diploma, 15 teams from PG, and 25 teams from PPG will be selected to advance to the on-campus defense.',
@@ -40,7 +40,7 @@ const stages: Stage[] = [
     id: 3,
     numeral: '3',
     title: 'Payment Confirmation',
-    date: 'Deadline: 30th Sep 2026',
+    date: 'Deadline: 02 Oct 2026',
     note: 'Payment Only for Selected Teams Only selected teams are required to pay the participation fee of ₹300.',
     venue: 'Online Payment via Our Official Payment Portal',
     summary:
@@ -52,7 +52,7 @@ const stages: Stage[] = [
     id: 4,
     numeral: '4',
     title: 'Internal Evaluation',
-    date: '03rd October 2026',
+    date: '03rd Oct 2026',
     time: '9:00 AM – 5:00 PM',
     venue: 'SLRTCE Campus, Mira-Bhayandar',
     summary:
@@ -64,7 +64,7 @@ const stages: Stage[] = [
     id: 5,
     numeral: '5',
     title: 'Grand Finale & Awards',
-    date: '03rd October 2026',
+    date: '03rd Oct 2026',
     time: '2:00 PM – 5:30 PM',
     venue: 'Main Auditorium, SLRTCE Campus',
     summary:
