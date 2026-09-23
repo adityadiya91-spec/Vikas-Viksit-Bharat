@@ -13,6 +13,7 @@ const HeroSection = () => {
   const lanyardPath = useMotionTemplate`M 1000 -500 L ${badgeXOffset} ${badgeYOffset}`;
 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+  const [isExpired, setIsExpired] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const sceneRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -26,8 +27,8 @@ const HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    // Target date: 30 September 2026, 11:59 PM
-    const targetDate = new Date('2026-09-30T23:59:00').getTime();
+    // Target date: 30 September 2026, 11:00 PM
+    const targetDate = new Date('2026-09-30T23:00:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -39,11 +40,15 @@ const HeroSection = () => {
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
         });
+        setIsExpired(false);
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+        setIsExpired(true);
       }
     };
 
     updateTimer();
-    const timer = setInterval(updateTimer, 60000);
+    const timer = setInterval(updateTimer, 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -338,17 +343,19 @@ const HeroSection = () => {
 
                     {/* Top Header Row */}
                     <div className="flex justify-between items-center w-full mb-1 z-10 gap-2 px-1">
-                      <div className="text-[8px] sm:text-[9px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px">
-                        [ REGISTRATION DEADLINE ]
+                      <div className={`text-[8px] sm:text-[9px] font-mono tracking-widest uppercase font-bold leading-none mt-px ${isExpired ? 'text-red-600' : 'text-black/80'}`}>
+                        {isExpired ? '[ REGISTRATION CLOSED ]' : '[ REGISTRATION DEADLINE ]'}
                       </div>
-                      <div className="flex items-center gap-1.5 ml-auto">
-                        <motion.div
-                          animate={{ opacity: [1, 0.2, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                          className="w-1.5 h-1.5 rounded-full bg-red-600 shadow-xs"
-                        />
-                        <span className="text-[8px] sm:text-[9px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
-                      </div>
+                      {!isExpired && (
+                        <div className="flex items-center gap-1.5 ml-auto">
+                          <motion.div
+                            animate={{ opacity: [1, 0.2, 1] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                            className="w-1.5 h-1.5 rounded-full bg-red-600 shadow-xs"
+                          />
+                          <span className="text-[8px] sm:text-[9px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Bottom Countdown Row */}
@@ -361,7 +368,7 @@ const HeroSection = () => {
                           DAYS
                         </span>
                       </div>
-                      <span className="text-black/40 font-mono font-bold text-base sm:text-lg mb-1 animate-pulse leading-none">:</span>
+                      <span className={`text-black/40 font-mono font-bold text-base sm:text-lg mb-1 leading-none ${isExpired ? '' : 'animate-pulse'}`}>:</span>
 
                       <div className="flex flex-col items-center flex-1">
                         <span className="font-mono font-bold text-lg sm:text-xl text-black leading-none tracking-widest">
@@ -371,7 +378,7 @@ const HeroSection = () => {
                           HRS
                         </span>
                       </div>
-                      <span className="text-black/40 font-mono font-bold text-base sm:text-lg mb-1 animate-pulse leading-none">:</span>
+                      <span className={`text-black/40 font-mono font-bold text-base sm:text-lg mb-1 leading-none ${isExpired ? '' : 'animate-pulse'}`}>:</span>
 
                       <div className="flex flex-col items-center flex-1">
                         <span className="font-mono font-bold text-lg sm:text-xl text-black leading-none tracking-widest">

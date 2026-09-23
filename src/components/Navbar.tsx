@@ -57,10 +57,11 @@ const Navbar = () => {
   }, []);
 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+  const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
-    // Target date: 30 September 2026, 11:59 PM
-    const targetDate = new Date('2026-09-30T23:59:00').getTime();
+    // Target date: 30 September 2026, 11:00 PM
+    const targetDate = new Date('2026-09-30T23:00:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -72,6 +73,10 @@ const Navbar = () => {
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
         });
+        setIsExpired(false);
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+        setIsExpired(true);
       }
     };
 
@@ -100,25 +105,27 @@ const Navbar = () => {
         
         {/* Top Header Row */}
         <div className="flex justify-between items-center w-full mb-[2px] sm:mb-[3px] z-10 gap-1.5 sm:gap-2.5 px-[1px]">
-          <div className="text-[5px] sm:text-[6px] xl:text-[7px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px">
-            [ REGISTRATION DEADLINE ]
+          <div className={`text-[5px] sm:text-[6px] xl:text-[7px] font-mono tracking-widest uppercase font-bold leading-none mt-px ${isExpired ? 'text-red-600' : 'text-black/80'}`}>
+            {isExpired ? '[ REGISTRATION CLOSED ]' : '[ REGISTRATION DEADLINE ]'}
           </div>
-          <div className="flex items-center gap-1 ml-auto">
-            <motion.div 
-              animate={{ opacity: [1, 0.2, 1] }} 
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-1 rounded-full bg-red-600 shadow-xs"
-            />
-            <span className="text-[5px] sm:text-[6px] xl:text-[7px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
-          </div>
+          {!isExpired && (
+            <div className="flex items-center gap-1 ml-auto">
+              <motion.div 
+                animate={{ opacity: [1, 0.2, 1] }} 
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="w-1 h-1 rounded-full bg-red-600 shadow-xs"
+              />
+              <span className="text-[5px] sm:text-[6px] xl:text-[7px] font-mono text-red-600 tracking-widest font-bold leading-none mt-px">LIVE</span>
+            </div>
+          )}
         </div>
 
         {/* Bottom Countdown Row (Days, Hours, Minutes) */}
         <div className="flex items-center justify-center z-10">
           <DigitalCard value={timeLeft.days} label="DAYS" />
-          <span className="text-black/40 font-mono font-bold text-[10px] sm:text-xs xl:text-sm mb-[2px] sm:mb-[3px] animate-pulse leading-none mx-[1px]">:</span>
+          <span className={`text-black/40 font-mono font-bold text-[10px] sm:text-xs xl:text-sm mb-[2px] sm:mb-[3px] leading-none mx-[1px] ${isExpired ? '' : 'animate-pulse'}`}>:</span>
           <DigitalCard value={timeLeft.hours} label="HRS" />
-          <span className="text-black/40 font-mono font-bold text-[10px] sm:text-xs xl:text-sm mb-[2px] sm:mb-[3px] animate-pulse leading-none mx-[1px]">:</span>
+          <span className={`text-black/40 font-mono font-bold text-[10px] sm:text-xs xl:text-sm mb-[2px] sm:mb-[3px] leading-none mx-[1px] ${isExpired ? '' : 'animate-pulse'}`}>:</span>
           <DigitalCard value={timeLeft.minutes} label="MIN" />
         </div>
       </div>
