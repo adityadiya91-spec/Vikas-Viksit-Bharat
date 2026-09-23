@@ -59,8 +59,8 @@ const Navbar = () => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
 
   useEffect(() => {
-    // Target date: 3 October 2026, 9:00 AM
-    const targetDate = new Date('2026-10-03T09:00:00').getTime();
+    // Target date: 30 September 2026, 11:59 PM
+    const targetDate = new Date('2026-09-30T23:59:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -101,7 +101,7 @@ const Navbar = () => {
         {/* Top Header Row */}
         <div className="flex justify-between items-center w-full mb-[2px] sm:mb-[3px] z-10 gap-1.5 sm:gap-2.5 px-[1px]">
           <div className="text-[5px] sm:text-[6px] xl:text-[7px] font-mono text-black/80 tracking-widest uppercase font-bold leading-none mt-px">
-            [ DEADLINE ]
+            [ REGISTRATION DEADLINE ]
           </div>
           <div className="flex items-center gap-1 ml-auto">
             <motion.div 
