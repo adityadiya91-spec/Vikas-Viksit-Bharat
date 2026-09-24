@@ -2,7 +2,6 @@ import { motion, useReducedMotion, useMotionValue, useTransform, useMotionTempla
 import { useState, useEffect, useRef } from 'react';
 import heritageCombinedImg from '../assets/heritage/heritage-combined-transparent.png';
 import { Calendar, MapPin, Lightbulb, Cpu, Trophy, Users, Globe } from 'lucide-react';
-import Matter from 'matter-js';
 
 const HeroSection = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -16,8 +15,6 @@ const HeroSection = () => {
   const [isExpired, setIsExpired] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const sceneRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const lanyardRef = useRef<SVGPathElement>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
